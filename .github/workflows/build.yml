@@ -1,0 +1,39 @@
+on:
+    schedule:
+    - cron: '0 */6 * * *'
+    
+jobs:
+    build:
+        runs-on: ubuntu-24.04
+        timeout-minutes: 235
+        permissions:
+            contents: write
+        strategy:
+            fail-fast: false
+            matrix:
+                color: [0, 1]
+        steps:
+        - run: |
+              sudo apt update
+              sudo apt install -y --no-install-recommends autogen flex
+              ./contrib/download_prerequisites
+              mkdir build
+              cd build
+              ../configure --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
+              sudo make install-strip
+              cd ${{github.workspace}}
+              tar -cjvf gcc.tar.bz2 gcc
+        - uses: softprops/action-gh-release@master
+          with:
+              token: ${{secrets.GITHUB_TOKEN}}
+              tag_name: 1
+              files: gcc.tar.bz2
+    clean:
+        runs-on: ubuntu-24.04
+        permissions:
+            actions: write
+        steps:
+        - run: |
+              sudo apt update
+              sudo apt install -y --no-install-recommends python3-aiohttp
+              curl https://bitbucket.org/chaowenguo/common/raw/main/clean.py | python3 - ${{secrets.GITHUB_TOKEN}}
