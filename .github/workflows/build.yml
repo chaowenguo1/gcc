@@ -1,4 +1,5 @@
 on:
+    push:
     schedule:
     - cron: '0 */6 * * *'
     
@@ -35,11 +36,11 @@ jobs:
               ./contrib/download_prerequisites
               mkdir build
               cd build
-              ../configure --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
+              ../configure --prefix=${{github.workspace}}/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
               make -j2
               make install-strip
               cd ${{github.workspace}}
-              tar -cjvf gcc.tar.bz2 gcc
+              tar -cjvf gcc.tar.bz2 product
         - uses: softprops/action-gh-release@master
           with:
               token: ${{secrets.GITHUB_TOKEN}}
