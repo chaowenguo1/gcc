@@ -22,7 +22,8 @@ jobs:
               mkdir build
               cd build
               ../configure --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
-              sudo make install-strip
+              make
+              make install-strip
               cd ${{github.workspace}}
               tar -cjvf gcc.tar.bz2 gcc
         - uses: softprops/action-gh-release@master
