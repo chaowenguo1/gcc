@@ -14,6 +14,7 @@ jobs:
             matrix:
                 color: [0, 1]
         steps:
+        - uses: actions/checkout@main
         - run: |
               sudo apt update
               sudo apt install -y --no-install-recommends autogen flex
