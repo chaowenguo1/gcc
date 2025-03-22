@@ -7,10 +7,10 @@ jobs:
         steps:
         - checkout
         - run: |
-             which docker
-             which podman
+             sudo docker info
              sudo apt update
-             sudo apt install -y --no-install-recommends autogen flex
+             sudo apt install -y --no-install-recommends autogen flex podman
+             podman info
              ./contrib/download_prerequisites
              mkdir build
              cd build
