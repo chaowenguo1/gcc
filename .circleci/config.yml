@@ -5,7 +5,7 @@ jobs:
         machine:
             image: ubuntu-2204:current
         steps:
-        #- checkout
+        - checkout
         - run: |
              sudo apt update
              sudo apt install -y --no-install-recommends podman uidmap catatonit
