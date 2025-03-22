@@ -26,6 +26,10 @@ jobs:
              ../configure --prefix=$CIRCLE_WORKING_DIRECTORY/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
              make
              make install-strip
+             cd $CIRCLE_WORKING_DIRECTORY
+             tar -cjvf gcc.tar.bz2 product
+        - store_artifacts:
+             path: $CIRCLE_WORKING_DIRECTORY/gcc.tar.bz2
 
 workflows:
     build_and_test:
