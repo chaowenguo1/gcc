@@ -13,7 +13,7 @@ jobs:
              ./contrib/download_prerequisites
              mkdir build
              cd build
-             ../configure --prefix=${{github.workspace}}/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
+             ../configure --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
              make
              make install-strip
 
