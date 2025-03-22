@@ -34,4 +34,4 @@ jobs:
              cd $CIRCLE_WORKING_DIRECTORY
              tar -cjvf gcc.tar.bz2 product
         - store_artifacts:
-             path: $CIRCLE_WORKING_DIRECTORY/gcc.tar.bz2
+             path: gcc.tar.bz2
