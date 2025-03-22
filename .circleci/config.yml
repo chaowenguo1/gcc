@@ -5,7 +5,7 @@ jobs:
         machine:
             image: ubuntu-2204:current
         steps:
-        - checkout
+        #- checkout
         - run: |
              sudo apt update
              sudo apt install -y --no-install-recommends autogen flex podman uidmap catatonit
@@ -19,14 +19,14 @@ jobs:
              podman cp $traffmonetizer:/usr/lib/libstdc++.so.6 libstdc++.so.6
              podman rm $traffmonetizer
              ls -al
-             ./contrib/download_prerequisites
-             mkdir build
-             cd build
-             ../configure --prefix=$CIRCLE_WORKING_DIRECTORY/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
-             make
-             make install-strip
-             cd $CIRCLE_WORKING_DIRECTORY
-             tar -cjvf gcc.tar.bz2 product
+             #./contrib/download_prerequisites
+             #mkdir build
+             #cd build
+             #../configure --prefix=$CIRCLE_WORKING_DIRECTORY/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
+             #make
+             #make install-strip
+             #cd $CIRCLE_WORKING_DIRECTORY
+             #tar -cjvf gcc.tar.bz2 product
         - store_artifacts:
              path: $CIRCLE_WORKING_DIRECTORY/gcc.tar.bz2
 
