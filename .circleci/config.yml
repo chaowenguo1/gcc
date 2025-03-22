@@ -34,15 +34,3 @@ jobs:
              tar -cjvf gcc.tar.bz2 product
         - store_artifacts:
              path: $CIRCLE_WORKING_DIRECTORY/gcc.tar.bz2
-
-workflows:
-    nightly:
-        triggers:
-        - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - main
-    jobs:
-      - coverage
