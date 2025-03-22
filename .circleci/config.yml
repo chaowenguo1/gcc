@@ -36,6 +36,13 @@ jobs:
              path: $CIRCLE_WORKING_DIRECTORY/gcc.tar.bz2
 
 workflows:
-    build_and_test:
-        jobs:
-        - build
+    nightly:
+        triggers:
+        - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - coverage
