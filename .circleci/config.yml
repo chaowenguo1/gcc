@@ -7,6 +7,7 @@ jobs:
         steps:
         - checkout
         - run: |
+             pwd
              apt update
              apt install -y --no-install-recommends autogen flex
              ./contrib/download_prerequisites
