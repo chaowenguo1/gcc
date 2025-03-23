@@ -33,6 +33,6 @@ jobs:
              make
              make install-strip
              cd $CIRCLE_WORKING_DIRECTORY
-             tar -cjvf gcc.tar.bz2 product
+             tar -cjvf gcc.tar.bz2 -C product .
         - store_artifacts:
              path: gcc.tar.bz2
