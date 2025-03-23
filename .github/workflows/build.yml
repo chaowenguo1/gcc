@@ -39,7 +39,7 @@ jobs:
               make
               make install-strip
               cd ${{github.workspace}}
-              tar -cjvf gcc.tar.bz2 product
+              tar -cjvf gcc.tar.bz2 -C product .
         - uses: softprops/action-gh-release@master
           with:
               token: ${{secrets.GITHUB_TOKEN}}
