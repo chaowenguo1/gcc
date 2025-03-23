@@ -36,7 +36,7 @@ jobs:
               mkdir build
               cd build
               ../configure --prefix=${{github.workspace}}/product --enable-threads=posix --enable-checking=release --disable-multilib --enable-languages=all #--enable-__cxa_atexit
-              make
+              make -j2
               make install-strip
               cd ${{github.workspace}}
               tar -cjvf gcc.tar.bz2 -C product .
