@@ -4,6 +4,7 @@ jobs:
     build:
         machine:
             image: ubuntu-2204:current
+        parallelism: 5
         resource_class: medium
         steps:
         - checkout
